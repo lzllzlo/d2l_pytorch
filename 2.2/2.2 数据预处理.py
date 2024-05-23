@@ -13,3 +13,12 @@ with open(data_file, 'w') as f:
 
 data = pd.read_csv(data_file)
 print(data)
+
+# 2.2.2 处理缺失值
+inputs, outputs = data.iloc[:, 0:2], data.iloc[:, 2]
+inputs = inputs.fillna(inputs.mean(numeric_only=True))
+print(inputs)
+
+inputs = pd.get_dummies(inputs, dummy_na=True)
+print(inputs)
+
