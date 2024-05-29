@@ -72,6 +72,7 @@ print('\n')
 y = torch.ones(4, dtype=torch.float32)
 print('x=', x, 'y=', y, '\ntorch.dot(x, y) =', torch.dot(x, y))
 print('torch.sum(x * y) = ', torch.sum(x * y))
+# 点乘要求两个矩阵结构一样，把两个矩阵中相同位置的元素相乘，然后将其全部相加得到一个标量值（一个数字）。
 
 # 2.3.8 矩阵-向量积
 print('\n')
@@ -79,3 +80,15 @@ print(A, A.shape)
 print(x, x.shape)
 print(torch.mv(A, x))  # 拿x每个元素，依次乘以A的每行的每个元素，结果按行相加显示。
 
+# 2.3.9 矩阵-矩阵乘法
+B = torch.ones(4, 3)
+print(A)
+print(B)
+print(torch.mm(A, B))
+# 矩阵乘以矩阵，只需要第一个矩阵的行等于第二个矩阵的列，对应行乘以列，在相加，得到的结果是一个矩阵。
+
+# 2.3.10 范数
+u = torch.tensor([3.0, -4.0])
+print('\n', torch.norm(u))  # L2范数：顶点距离
+print(torch.abs(u).sum())  # L1范数：坐标值之和
+print(torch.norm(torch.ones((4, 9))))  # Lp范数：矩阵元素平方和的平方根
