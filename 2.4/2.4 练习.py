@@ -1,3 +1,4 @@
+#  绘制函数y=f(x)=x^3−1/x和其在x=1处切线的图像。
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -6,7 +7,7 @@ import d2l
 
 # 2.4.1 导数和微分
 def f(x):
-    return 3 * x ** 2 - 4 * x
+    return x ** 3 - 1 / x
 
 
 def numerical_lim(f, x, h):
@@ -80,7 +81,8 @@ def plot(X, Y=None, xlabel=None, ylabel=None, legend=None, xlim=None,
 
 # 示例绘图
 x = np.arange(0, 3, 0.1)
-plot(x, [f(x), 2 * x - 3], 'x', 'f(x)', legend=['f(x)', 'Tangent line (x=1)'])
+plot(x, [f(x), 4 * x - 4], 'x', 'f(x)', legend=['f(x)', 'Tangent line (x=1)'])
 
 # 显示绘图
 plt.show()
+
