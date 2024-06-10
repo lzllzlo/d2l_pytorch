@@ -3,8 +3,8 @@ import pandas as pd
 import torch
 
 # 创建包含更多行和列的原始数据集
-os.makedirs(os.path.join('..', 'data'), exist_ok=True)
-data_file = os.path.join('..', 'data', 'house_tiny_practice.cav')
+os.makedirs(os.path.join('../..', 'data'), exist_ok=True)
+data_file = os.path.join('../..', 'data', 'house_tiny_practice.cav')
 with open(data_file, 'w') as f:
     f.write('number,NumRooms,Alley,Price\n')
     f.write('1,NA,Pave,127500\n')
