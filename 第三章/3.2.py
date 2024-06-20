@@ -67,4 +67,45 @@ def linreg(X, w, b):  #@save
     return torch.matmul(X, w) + b
 
 
+# 3.2.5 定义损失函数
+def squared_loss(y_hat, y):  #@save
+    """均方损失"""
+    return (y_hat - y.reshape(y_hat.shape)) ** 2 / 2
 
+
+# 3.2.6 定义优化算法
+def sgd(params, lr, batch_size): #@save
+    """小批量随机梯度下降"""
+    with torch.no_grad():
+        '''with torch.no_grad()是一个用于禁用梯度的上下文管理器。
+        禁用梯度计算对于推理是很有用的，
+        当我们确定不会调用 Tensor.backward()时，它将减少计算的内存消耗。
+        因为在此模式下，即使输入为 requires_grad=True，
+        每次计算的结果也将具有requires_grad=False。
+        总的来说， with torch.no_grad() 可以理解为，
+        在管理器外产生的与原参数有关联的参数requires_grad属性都默认为True，
+        而在该管理器内新产生的参数的requires_grad属性都将置为False。'''
+        for param in params:
+            param -= lr * param.grad / batch_size
+            param.grad.zero_()
+
+
+# 3.2.7 训练
+lr = 0.03
+num_epochs = 3
+net = linreg
+loss = squared_loss
+
+
+for epoch in range(num_epochs):
+    for X, y in data_iter(batch_size, features, labels):
+        l = loss(net(X, w, b), y) # X和y的小批量损失
+        # 因为l形状是(batch_size,1)，而不是一个标量。l中的所有元素被加到一起，
+        # 并以此计算关于[w,b]的梯度
+        l.sum().backward()
+        sgd([w, b], lr, batch_size)  # 使用参数的梯度更新参数
+    with torch.no_grad():
+        train_l = loss(net(features, w, b), labels)
+        print(f'epoch {epoch + 1}, loss {float(train_l.mean()):f}')
+print(f'w的估计误差: {true_w - w.reshape(true_w.shape)}')
+print(f'b的估计误差: {true_b - b}')
