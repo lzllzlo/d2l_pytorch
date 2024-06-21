@@ -21,7 +21,7 @@ print('features:', features[999], '\nlabel:', labels[999])
 d2l.set_figsize()
 d2l.plt.scatter(features[:, (1)].detach().numpy(), labels.detach().numpy(), 1)
 
-# plt.show()
+plt.show()
 
 
 def data_iter(batch_size, features, labels):
